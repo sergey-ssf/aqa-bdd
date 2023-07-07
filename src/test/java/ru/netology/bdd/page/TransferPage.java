@@ -34,9 +34,8 @@ public class TransferPage {
         return new DashboardPage();
     }
 
-    public DashboardPage makeInvalidTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
+    public void makeInvalidTransfer(String amountToTransfer, DataHelper.CardInfo cardInfo) {
         makeTransfer(amountToTransfer, cardInfo);
-        return new DashboardPage();
     }
 
     // expectedMessage в нашем случае = Ошибка! Произошла ошибка

@@ -54,14 +54,6 @@ public class DataHelper {
         String cardNumber;
         String testID;
 
-        public String getCardNumber() {
-            return cardNumber;
-        }
-
-        public String getTestID() {
-            return testID;
-        }
-
     }
 
 

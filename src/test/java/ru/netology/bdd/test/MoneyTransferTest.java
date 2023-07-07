@@ -9,6 +9,7 @@ import ru.netology.bdd.page.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static ru.netology.bdd.data.DataHelper.generateInvalidAmount;
 import static ru.netology.bdd.data.DataHelper.generateValidAmount;
 
 public class MoneyTransferTest {
@@ -29,6 +30,7 @@ public class MoneyTransferTest {
     @Test
     @DisplayName("Should Transfer Money Between One Owner Cards - Positive")
 
+
     void shouldTransferMoneyBetweenOwnCards() {
         var firstCardInfo = DataHelper.getFirstCardInfo();
         var secondCardInfo = DataHelper.getSecondCardInfo();
@@ -43,9 +45,19 @@ public class MoneyTransferTest {
         var actualBalanceSecondCard = dashboardPage.getCardBalance(secondCardInfo);
         assertEquals(expectedBalanceFirstCard, actualBalanceFirstCard);
         assertEquals(expectedBalanceSecondCard, actualBalanceSecondCard);
+    }
 
+    @Test
+    @DisplayName("Should Give Error Of Invalid Value")
 
-
+    void shouldGiveErrorOfInvalidValue() {
+        var firstCardInfo = DataHelper.getFirstCardInfo();
+        var secondCardInfo = DataHelper.getSecondCardInfo();
+        var secondCardBalance = dashboardPage.getCardBalance(secondCardInfo);
+        var amount = generateInvalidAmount(secondCardBalance);
+        var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
+        dashboardPage = transferPage.makeValidTransfer(String.valueOf(amount), secondCardInfo);
+        transferPage.findErrorMessage("Ошибка! На карте списания недостаточно средств" );
     }
 
 
